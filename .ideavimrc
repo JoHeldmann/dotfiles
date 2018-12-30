@@ -1,0 +1,50 @@
+
+set ignorecase
+set incsearch
+set number
+set relativenumber
+set smartcase
+
+imap jj <Esc>
+nmap ö :
+vmap ö :
+
+" Use 'standard' keys for copy/paste
+" Paste works only in insert Mode!!! (conflicts with visual block)
+nmap <C-c> "+yy
+vmap <C-c> "+y
+vmap <C-x> "+d
+vmap <C-v> c<ESC>"+p
+"imap <C-v> <C-r><C-o>+
+imap <C-v> <ESC>:action $Paste<CR>a
+
+let mapleader = " "
+map <leader>a :action $SelectAll<CR>
+map <leader>b :action GotoDeclaration<CR>
+map <leader>c :action $Copy<CR>
+map <leader>d :action EditorDuplicate<CR>
+map <leader>e :action RecentFiles<CR>
+map <leader>f :action Find<CR>
+map <leader>g :action GotoLine<CR>
+map <leader>h :action TypeHierarchy<CR>
+map <leader>i :action ImplementMethods<CR>
+map <leader>k :action Vcs.CheckinProject<CR>
+map <leader>m :action EditorScrollToCenter<CR>
+map <leader>n :action GotoClass<CR>
+map <leader>o :action OverrideMethods<CR>
+map <leader>p :action ParameterInfo<CR>
+map <leader>q :action QuickJavaDoc<CR>
+map <leader>r :action Replace<CR>
+map <leader>s :action SaveAll<CR>
+map <leader>t :action Vcs.UpdateProject<CR>
+map <leader>u :action GotoSuperMethod<CR>
+map <leader>v :action $Paste<CR>
+map <leader>w :action EditorSelectWord<CR>
+map <leader>x :action $Cut<CR>
+map <leader>y :action EditorDeleteLine<CR>
+map <leader>[ :action EditorCodeBlockStart<CR>
+map <leader>] :action EditorCodeBlockEnd<CR>
+
+map <leader>j :action MethodDown<CR>
+map <leader>k :action MethodUp<CR>
+
