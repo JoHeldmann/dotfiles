@@ -25,6 +25,7 @@ alias lz='ll -rS'                   # sort by size
 alias lt='ll -rt'                   # sort by date
 alias lm='la | more'
 
+alias fm='~/.config/vifm/scripts/start-vifm.sh'
 alias openports='ss --all --numeric --processes --ipv4 --ipv6'
 
 # pacman aliases
