@@ -172,8 +172,19 @@ command! reload :write | restart
 " program.
 
 " Pdf
-filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
-fileviewer *.pdf pdftotext -nopgbrk %c -
+"filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
+filextype *.pdf mupdf %c &, zathura %c %i &, apvlv %c, xpdf %c
+"fileviewer *.pdf pdftotext -nopgbrk %c -
+fileviewer *.pdf
+        \ vifmimg pdfpreview %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
+
+" epub
+fileviewer *.epub
+        \ vifmimg epubpreview %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
 
 " PostScript
 filextype *.ps,*.eps,*.ps.gz
@@ -191,10 +202,12 @@ filextype *.djvu
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
-       \ {Play using ffplay}
-       \ ffplay -nodisp -autoexit %c,
-       \ {Play using MPlayer}
-       \ mplayer %f,
+        \ {Play using vlc}
+        \ vlc %f 2> /dev/null &,
+        \ {Play using ffplay}
+        \ ffplay -nodisp -autoexit %c,
+        \ {Play using MPlayer}
+        \ mplayer %f,
 fileviewer *.mp3 mp3info
 fileviewer *.flac soxi
 
@@ -202,16 +215,23 @@ fileviewer *.flac soxi
 filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
          \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
          \*.as[fx]
-        \ {View using ffplay}
-        \ ffplay -fs -autoexit %f,
-        \ {View using Dragon}
-        \ dragon %f:p,
-        \ {View using mplayer}
-        \ mplayer %f,
+         \ {View using vlc}
+         \ vlc %f 2> /dev/null &,
+         \ {View using ffplay}
+         \ ffplay -fs -autoexit %f,
+         \ {View using Dragon}
+         \ dragon %f:p,
+         \ {View using mplayer}
+         \ mplayer %f,
+"fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+"          \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+"          \*.as[fx]
+"         \ ffprobe -pretty %c 2>&1
 fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-          \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
-          \*.as[fx]
-         \ ffprobe -pretty %c 2>&1
+        \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+        \ vifmimg videopreview %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
 
 " Web
 filextype *.html,*.htm
@@ -231,7 +251,9 @@ filetype *.[1-8] man ./%c
 fileviewer *.[1-8] man ./%c | col -b
 
 " Images
-filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.rw2
+        \ {View in geequie}
+        \ geeqie %f &,
         \ {View in sxiv}
         \ sxiv %f,
         \ {View in gpicview}
@@ -240,10 +262,18 @@ filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ shotwell,
 "fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
 "         \ convert -identify %f -verbose /dev/null
-fileviewer *.jpg,*.jpeg,*.png
-           \ vifmimg draw %px %py %pw %ph %c
-           \ %pc
-           \ vifmimg clear
+"fileviewer *.jpg,*.jpeg,*.png
+"           \ vifmimg draw %px %py %pw %ph %c
+"           \ %pc
+"           \ vifmimg clear
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
+        \ vifmimg draw %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
+fileviewer *.gif
+        \ vifmimg gifpreview %px %py %pw %ph %c
+        \ %pc
+        \ vifmimg clear
 
 " OpenRaster
 filextype *.ora
@@ -393,6 +423,8 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 " Customize view columns a bit (enable ellipsis for truncated file names)
 "
 " set viewcolumns=-{name}..,6{}.
+"set viewcolumns=-{name}..,6%{size}i,5%{mtime}.
+set viewcolumns=-{name},{size},13{mtime}.
 
 " Filter-out build and temporary files
 "
@@ -475,8 +507,16 @@ nnoremap <f8> :delete<cr>
 "
 " let $VIFM_SERVER_NAME = v:servername
 
+" --------------------------------------------
 " my settings
 nmap ö :
 vmap ö :
+
+" create link of selected file in path of other window
 command! ln ln %d/%f %D
+
+" copy name and path of selected files to clipboard
+nnoremap yf :!printf "\n%%s" %f:p | tail -c+2 | xclip %i<cr>
+" copy name without path of selected files to clipboard
+nnoremap yn :!printf "\n%%s" %f | tail -c+2 | xclip %i<cr>
 

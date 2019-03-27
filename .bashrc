@@ -85,7 +85,6 @@ parse_git_branch() {
 }
 PS1="\n\[\033[0;32m\]\u@\h \[\033[0;34m\]\w\[\033[0;33m\]\$(parse_git_branch)\[\033[0m\]\n\[\033[0;33m\]\t\[\033[0;30m\] \$ "
 
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/jo/.sdkman"
 [[ -s "/home/jo/.sdkman/bin/sdkman-init.sh" ]] && source "/home/jo/.sdkman/bin/sdkman-init.sh"
