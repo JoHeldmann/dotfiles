@@ -113,6 +113,7 @@ endif
 
 set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 
+
 " ------------------------------------------------------------------------------
 
 " :mark mark /full/directory/path [filename]
@@ -511,12 +512,28 @@ nnoremap <f8> :delete<cr>
 " my settings
 nmap ö :
 vmap ö :
+nmap # '
+vmap # '
 
 " create link of selected file in path of other window
 command! ln ln %d/%f %D
 
 " copy name and path of selected files to clipboard
-nnoremap yf :!printf "\n%%s" %f:p | tail -c+2 | xclip %i<cr>
+"nnoremap yf :!printf "\n%%s" %f:p | tail -c+2 | xclip %i<cr>
 " copy name without path of selected files to clipboard
-nnoremap yn :!printf "\n%%s" %f | tail -c+2 | xclip %i<cr>
+"nnoremap yn :!printf "\n%%s" %f | tail -c+2 | xclip %i<cr>
+
+" yank current directory path into the clipboard
+nnoremap yd :!echo -n %d | xclip %i<cr>
+" yank current file path into the clipboard
+nnoremap yf :!echo -n %c:p | xclip %i<cr>
+" yank current filename without path into the clipboard
+nnoremap yn :!echo -n %c | xclip %i<cr>
+" yank root of current file's name into the clipboard
+nnoremap yr :!echo -n %c:r | xclip %i<cr>
+
+set relativenumber
+set rulerformat='%2l-%S%[ +%x%]'
+"set sort=+iname
+set statusline=" %t%= %A %7u:%-7g %6E %12d "
 
