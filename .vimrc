@@ -61,9 +61,13 @@ let NERDTreeQuitOnOpen = 1
 "let NERDTreeDirArrows = 1
 
 " --- PaperColor ----------------------------------------------------
-set background=light
-colorscheme PaperColor
+"set background=light
+"colorscheme PaperColor
 
+" Solarized dark
+set background=dark
+colorscheme solarized
+"
 " --- vim-airline ---------------------------------------------------
 let g:airline#extensions#tabline#enabled = 1
 

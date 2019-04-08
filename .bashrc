@@ -16,7 +16,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias mkdir='mkdir -p -v'
 
-alias ls='ls -hF --color=auto'
+alias ls='lsd -hF'
+#alias ls='ls -hF --color=auto'
 alias lr='ls -R'                    # recursive ls
 alias ll='ls -l'
 alias la='ll -A'
@@ -83,7 +84,8 @@ PS1='[\u@\h \W]\$ '
 parse_git_branch() {
  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-PS1="\n\[\033[0;32m\]\u@\h \[\033[0;34m\]\w\[\033[0;33m\]\$(parse_git_branch)\[\033[0m\]\n\[\033[0;33m\]\t\[\033[0;30m\] \$ "
+#PS1="\n\[\033[0;32m\]\u@\h \[\033[0;34m\]\w\[\033[0;33m\]\$(parse_git_branch)\[\033[0m\]\n\[\033[0;33m\]\t\[\033[0;30m\] \$ "
+PS1="\n\[\033[0;32m\]\u@\h \[\033[0;33m\]\w\[\033[1;32m\]\$(parse_git_branch)\[\033[0m\]\n\[\033[0;34m\]\t\[\033[0;37m\] \$ "
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/jo/.sdkman"

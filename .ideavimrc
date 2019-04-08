@@ -6,8 +6,8 @@ set relativenumber
 set smartcase
 
 imap jj <Esc>
-nmap ö :
-vmap ö :
+nmap Ã¶ :
+vmap Ã¶ :
 
 " Use 'standard' keys for copy/paste
 " Paste works only in insert Mode!!! (conflicts with visual block)
